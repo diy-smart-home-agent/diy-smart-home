@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home Assistant: Turn On Hallway Lights on Motion (Auto-Off)</title>
+  <style>body{font-family:system-ui,sans-serif;max-width:780px;margin:2rem auto;padding:0 1rem;line-height:1.6}pre{background:#f4f4f4;padding:1rem;border-radius:6px;overflow:auto}a{color:#0b6}footer{border-top:1px solid #eee;margin-top:3rem;padding-top:1rem;font-size:.85rem;color:#666}</style>
+</head>
+<body>
+  <h1>Home Assistant: Turn On Hallway Lights on Motion (Auto-Off)</h1>
+  <p>A copy-paste automation that turns on hallway lights when motion is detected after sunset, then turns them off after 5 minutes.</p>
+  <pre><code>automation:
+  - alias: Turn on hallway lights after sunset
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.hall_motion_sensor
+        to: 'on'
+    condition:
+      - condition: sun
+        after: sunset
+    action:
+      - service: light.turn_on
+        entity_id: light.hall_lights
+      - delay: 00:05:00
+      - service: light.turn_off
+        entity_id: light.hall_lights</code></pre>
+  <h2>How to adapt</h2>
+  <ul>
+    <li>Change <code>binary_sensor.hall_motion_sensor</code> to your motion sensor entity ID.</li>
+    <li>Change <code>light.hall_lights</code> to your smart light entity ID.</li>
+    <li>Adjust the <code>delay</code> duration for auto-off.</li>
+  </ul>
+  <footer><p><a href="../index.html">← Home</a> · <a href="../disclosure.html">Affiliate disclosure</a></p></footer>
+</body>
+</html>
